@@ -1,0 +1,155 @@
+<?xml version="1.0"?>
+<!--
+/**
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL).
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @category   	Payment Gateway
+ * @package    	MercadoPago
+ * @author      Carlos Corrêa (cadu.rcorrea@gmail.com)
+ * @copyright  	Copyright (c) MercadoPago [http://www.mercadopago.com]
+ * @license    	http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <mercadopago>
+            <version>2.0.0</version>
+        </mercadopago>
+    </modules>
+    <global>
+        <models>
+            <mercadopago>
+                <class>MercadoPago_Model</class>
+                <resourceModel>mercadopago_model</resourceModel>
+            </mercadopago>
+            <mercadopago_mysql4>
+                <class>MercadoPago_Model_Mysql4</class>
+                <entities>
+                    <api_debug><table>mercadopago_api_debug</table></api_debug>
+                </entities>
+            </mercadopago_mysql4>
+            <mercadopago_mysql4>
+                <class>MercadoPago_Model_Mysql4</class>
+                <entities>
+                    <mercadopago_return><table>mercadopago</table></mercadopago_return>
+                </entities>
+            </mercadopago_mysql4>
+        </models>
+        <resources>
+            <mercadopago_setup>
+                <setup>
+                    <module>MercadoPago</module>
+                    <class>MercadoPago_Model_Mysql4_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </mercadopago_setup>
+            <mercadopago_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </mercadopago_write>
+            <mercadopago_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </mercadopago_read>
+        </resources>
+        <blocks>
+            <mercadopago><class>MercadoPago_Block</class></mercadopago>
+        </blocks>
+		
+    <helpers>
+        <mercadopago>
+            <class>MercadoPago_Helper</class>
+        </mercadopago>
+    </helpers>
+
+		
+    </global>
+    <frontend>      
+        <routers>
+            <mercadopago>
+                <use>standard</use>
+                <args>
+                    <module>MercadoPago</module>
+                    <frontName>MercadoPago</frontName>
+                </args>
+            </mercadopago>
+        </routers>
+        <translate>
+            <modules>
+                <mercadopago>
+                    <files>
+                        <default>mercadopago.csv</default>
+                    </files>
+                </mercadopago>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <mercadopago>
+                    <file>mercadopago.xml</file>
+                </mercadopago>
+            </updates>
+        </layout>
+    </frontend>
+    <adminhtml>
+        <translate>
+            <modules>
+                <mercadopago>
+                    <files>
+                        <default>mercadopago.csv</default>
+                    </files>
+                </mercadopago>
+            </modules>
+        </translate>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <mercadopago translate="title" module="mercadopago">
+                                            <title>MercadoPago</title>
+                                        </mercadopago>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>        
+    </adminhtml>
+
+    <default>
+         <payment>
+             <mercadopago_standard>
+                  <model>MercadoPago_Model_Standard</model>
+                  <title>MercadoPago</title>
+                  <url_success>[mystore.com]/index.php/checkout/onepage/success/</url_success>
+                  <url_process>[mystore.com]/index.php/checkout/onepage/success/</url_process>
+                  <order_status_new>pending</order_status_new>
+                  <order_status_approved>processing</order_status_approved>
+                  <order_status_refunded>pending</order_status_refunded>
+                  <order_status_in_process>pending</order_status_in_process>
+                  <order_status_in_mediation>pending</order_status_in_mediation>
+                  <order_status_rejected>pending</order_status_rejected>
+                  <order_status_cancelled>pending</order_status_cancelled>
+                  <installments>18</installments>
+                  <allowspecific>0</allowspecific>
+            </mercadopago_standard>
+        </payment>
+    </default>
+    
+</config>
+
